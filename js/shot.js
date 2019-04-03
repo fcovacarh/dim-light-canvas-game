@@ -20,12 +20,12 @@ class Shot {
         this.ctx.save();
         this.ctx.translate(this.x, this.y);
         this.ctx.rotate(-this.rotation);
-        this.ctx.fillStyle = 'white';
+        this.ctx.fillStyle = 'yellow';
         this.ctx.fillRect(-this.dimX/2, -this.dimY/2, this.dimX, this.dimY);
         this.ctx.restore();
     }
 
-    checkIfCollision(checkX, checkY) {
-        return getVectorMagnitude({x: checkX - this.x, y: checkY - this.y}) <= this.dimX;
+    checkIfCollision(checkX, checkY, enemyDiameter) {
+        return getVectorMagnitude({x: checkX - this.x, y: checkY - this.y}) <= enemyDiameter;
     }
 }
