@@ -28,12 +28,8 @@ class Enemy extends Character {
     );
   }
 
-  getDirection(x, y) {
-    return normalizeVector({ x: x - this.x, y: y - this.y });
-  }
-
-  checkForCollision() {
-    return getVectorMagnitude({x: this.playerX - this.x, y: this.playerY - this.y}) < this.dimX;
+  checkForCollision(playerDiameter) {
+    return getVectorMagnitude({x: this.playerX - this.x, y: this.playerY - this.y}) < playerDiameter;
   }
 
   draw() {

@@ -12,6 +12,9 @@ class Character {
     this.speed = speed;
   }
 
+  getDirection(x, y) {
+    return normalizeVector({ x: x - this.x, y: y - this.y });
+  }
 
   setRotation(angle) {
     this.rotation = angle;
@@ -23,10 +26,13 @@ class Character {
   }
 
   draw() {
+    this.img.onload = () => {
     this.ctx.save();
     this.ctx.translate(this.x, this.y);
     this.ctx.rotate(-this.rotation);
     this.ctx.fillRect(-this.dimX/2, -this.dimY/2, this.dimX, this.dimY);
+    //this.ctx.drawImage(this.img, 0, 0, this.dimX, this.dimY, this.x, this.y, this.dimX, this.dimY)
     this.ctx.restore();
+    }
   }
 }

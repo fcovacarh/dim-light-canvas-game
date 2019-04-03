@@ -3,24 +3,12 @@ var fps = 60;
 var preload;
 var SPAWN_RANGE = 100;
 var player;
-var PLAYER_SPEED = 1;
+var PLAYER_SPEED = 5;
 var enemies = [];
 var nextEnemyId = 0;
-var ENEMIES_SPEED = 0.4; 
+var ENEMIES_SPEED = 1; 
 var ENEMIES_FREQUENCY = 500;
 var shotsFired = [];
-
-document.onmousemove = e => {
-  var angle = getAngleBetween(
-    { x: e.pageX, y: e.pageY },
-    { x: canvasW / 2, y: canvasH / 2 }
-  );
-  updatePlayerPos(angle);
-};
-
-document.onmousedown = e => {
-  shotsFired.push(player.shoot(e.pageX, e.pageY));
-};
 
 init();
 
@@ -33,21 +21,13 @@ function init() {
   createPlayer(canvasW / 2, canvasH / 2);
   generateEnemy();
   var frameCounter = 0;
-  setInterval(() => {
+  var gameInterval = setInterval(() => {
     frameCounter++;
     if (frameCounter % ENEMIES_FREQUENCY === 0) {
       generateEnemy();
     }
     checkIfEnemiesAreShot();
-    enemies.forEach((enemy, idx) => {
-      if (!enemy.checkForCollision()) {
-        enemy.move();
-      } else {
-        player.takeDamage(10);
-        enemies.splice(idx, 1);
-      }
-      enemy.move();
-    });
+    checkIfEnemiesAttacked();
 
     shotsFired.forEach((shot, idx) => {
       if (shot.x < 0 || shot.x > canvasW || shot.y < 0 || shot.y > canvasH) {
@@ -64,8 +44,7 @@ function init() {
 function checkIfEnemiesAreShot() {
   enemies.forEach((enemy, enemyIdx) => {
     shotsFired.forEach((shot, shotIdx) => {
-      if(shot.checkIfCollision(enemy.x, enemy.y)) {
-        console.log(enemy.health);
+      if(shot.checkIfCollision(enemy.x, enemy.y, enemy.dimX)) {
         shotsFired.splice(shotIdx, 1);
         enemy.takeDamage(shot.damage);
         if(enemy.health <= 0){
@@ -76,13 +55,29 @@ function checkIfEnemiesAreShot() {
   });
 }
 
+function checkIfEnemiesAttacked(){
+  enemies.forEach((enemy, idx) => {
+    if (!enemy.checkForCollision(player.dimX)) {
+      enemy.move();
+    } else {
+      player.takeDamage(10);
+      if(player.health <= 0) {
+        clearInterval(gameInterval);
+        gameOver();
+      }
+      enemies.splice(idx, 1);
+    }
+    enemy.move();
+  });
+}
+
 function createPlayer(initialX, initialY) {
   player = new Player(
     initialX,
     initialY,
     50,
     50,
-    "./images/basic-char-sheet.png",
+    "./images/player.png",
     ctx,
     0,
     100,
@@ -93,31 +88,25 @@ function createPlayer(initialX, initialY) {
 function updatePlayerPos(angle) {
   player.setRotation(angle);
   enemies.forEach(enemy => {
-    enemy.playerX = player.x;
-    enemy.playerY = player.y;
+    enemy.updatePlayerPos(player.x, player.y);
   });
-}
 
-function calculateRotationAngle() {
-  var angle = Math.atan2(
-    stage.mouseY - jetSprite.y,
-    stage.mouseX - jetSprite.x
-  );
-  angle = angle * (180 / Math.PI);
 }
 
 function generateEnemy() {
+  var enemyX = getRandomIntTwoRanges(-SPAWN_RANGE, 0, canvasW, canvasW + SPAWN_RANGE);
+  var enemyY = getRandomIntTwoRanges(-SPAWN_RANGE, 0, canvasH, canvasH + SPAWN_RANGE);
+  var angle = getAngleBetween({x: enemyX, y: enemyY}, {x: player.x, y: player.y});
+
   enemies.push(
     new Enemy(
-      // getRandomInt(-1, canvasW + 1),
-      // getRandomInt(-1, canvasH + 1),
-      getRandomIntTwoRanges(-SPAWN_RANGE, 0, canvasW, canvasW + SPAWN_RANGE),
-      getRandomIntTwoRanges(-SPAWN_RANGE, 0, canvasH, canvasH + SPAWN_RANGE),
+      enemyX,
+      enemyY,
       50,
       50,
-      "",
+      "./images/player.png",
       ctx,
-      0,
+      angle,
       10,
       ENEMIES_SPEED,
       nextEnemyId,
@@ -132,4 +121,8 @@ function drawAll() {
   shotsFired.forEach(shot => shot.draw());
   enemies.forEach(enemy => enemy.draw());
   player.draw();
+}
+
+function gameOver() {
+  alert("Game Over :(");
 }
