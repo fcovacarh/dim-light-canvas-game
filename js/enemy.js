@@ -9,12 +9,10 @@ class Enemy extends Character {
     rotation,
     health,
     speed,
-    id,
     playerX,
     playerY
   ) {
     super(x, y, dimX, dimY, image, ctx, rotation, health, speed);
-    this.id = id;
     this.playerX = playerX;
     this.playerY = playerY;
   }
@@ -30,11 +28,6 @@ class Enemy extends Character {
 
   checkForCollision(playerDiameter) {
     return getVectorMagnitude({x: this.playerX - this.x, y: this.playerY - this.y}) < playerDiameter;
-  }
-
-  draw() {
-    this.ctx.fillStyle = "red";
-    super.draw();
   }
 
   move() {

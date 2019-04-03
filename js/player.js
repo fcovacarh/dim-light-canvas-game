@@ -5,6 +5,8 @@ class Player extends Character {
   constructor(x, y, dimX, dimY, image, ctx, rotation, health, speed) {
     super(x, y, dimX, dimY, image, ctx, rotation, health, speed);
     this.img.src = image;
+    this.img.frames = 3;
+    this.img.frameIndex = 0;
     this.x = x;
     this.y = y;
     this.dimX = dimX;
@@ -16,21 +18,7 @@ class Player extends Character {
   }
 
   draw(canvasW, canvasH) {
-    this.ctx.save();
-    this.ctx.translate(this.x, this.y);
-    this.ctx.rotate(-this.rotation);
-    this.ctx.drawImage(
-      this.img,
-      0,
-      0,
-      this.dimX,
-      this.dimY,
-      this.dimX/2,
-      this.dimY/2,
-      -this.dimX,
-      -this.dimY
-    );
-    this.ctx.restore();
+    super.draw();
     ctx.fillStyle = `rgba(0,0,0,${1 - this.health/100})`;
     ctx.fillRect(0, 0, canvasW, canvasH);
 }
@@ -41,8 +29,8 @@ class Player extends Character {
       this.y,
       destX,
       destY,
+      5,
       10,
-      15,
       this.ctx,
       this.rotation,
       BASE_SHOT_SPEED,

@@ -7,6 +7,7 @@ var PLAYER_SPEED = 5;
 var enemies = [];
 var nextEnemyId = 0;
 var ENEMIES_SPEED = 1; 
+var ENEMIES_BASE_HEALTH = 3;
 var ENEMIES_FREQUENCY = 500;
 var shotsFired = [];
 
@@ -21,10 +22,10 @@ function init() {
 
   createPlayer(canvasW / 2, canvasH / 2);
   generateEnemy();
-  var frameCounter = 0;
+  var framesCounter = 0;
   var gameInterval = setInterval(() => {
-    frameCounter++;
-    if (frameCounter % ENEMIES_FREQUENCY === 0) {
+    framesCounter++;
+    if (framesCounter % ENEMIES_FREQUENCY === 0) {
       generateEnemy();
     }
     checkIfEnemiesAreShot();
@@ -38,7 +39,7 @@ function init() {
       }
     });
     ctx.clearRect(0, 0, canvasW, canvasH);
-    drawAll();
+    drawAll(framesCounter);
   }, 1000 / fps);
 }
 
@@ -105,17 +106,15 @@ function generateEnemy() {
       enemyY,
       32,
       32,
-      "images/player.png",
+      "images/enemy1.png",
       ctx,
       angle,
-      10,
+      ENEMIES_BASE_HEALTH,
       ENEMIES_SPEED,
-      nextEnemyId,
       player.x,
       player.y
     )
   );
-  nextEnemyId++;
 }
 
 function drawAll() {
