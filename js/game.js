@@ -121,7 +121,7 @@ function generateEnemy() {
 function drawAll() {
   shotsFired.forEach(shot => shot.draw());
   enemies.forEach(enemy => enemy.draw());
-  player.draw();
+  player.draw(canvasW, canvasH);
 }
 
 function gameOver() {

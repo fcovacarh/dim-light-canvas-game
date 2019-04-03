@@ -15,11 +15,10 @@ class Player extends Character {
     this.speed = speed;
   }
 
-  draw() {
+  draw(canvasW, canvasH) {
     this.ctx.save();
     this.ctx.translate(this.x, this.y);
     this.ctx.rotate(-this.rotation);
-    //this.ctx.fillRect(-this.dimX/2, -this.dimY/2, this.dimX, this.dimY);
     this.ctx.drawImage(
       this.img,
       0,
@@ -32,6 +31,8 @@ class Player extends Character {
       -this.dimY
     );
     this.ctx.restore();
+    ctx.fillStyle = `rgba(0,0,0,${1 - this.health/100})`;
+    ctx.fillRect(0, 0, canvasW, canvasH);
 }
   
   shoot(destX, destY) {
