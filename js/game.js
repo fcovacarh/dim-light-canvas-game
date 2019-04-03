@@ -17,6 +17,7 @@ function init() {
   canvasW = canvas.width = window.innerWidth * 0.98;
   canvasH = canvas.height = window.innerHeight * 0.98;
   ctx = canvas.getContext("2d");
+  //ctx.scale(.6, .6)
 
   createPlayer(canvasW / 2, canvasH / 2);
   generateEnemy();
@@ -27,7 +28,7 @@ function init() {
       generateEnemy();
     }
     checkIfEnemiesAreShot();
-    checkIfEnemiesAttacked();
+    checkIfEnemiesAttacked(gameInterval);
 
     shotsFired.forEach((shot, idx) => {
       if (shot.x < 0 || shot.x > canvasW || shot.y < 0 || shot.y > canvasH) {
@@ -55,7 +56,7 @@ function checkIfEnemiesAreShot() {
   });
 }
 
-function checkIfEnemiesAttacked(){
+function checkIfEnemiesAttacked(gameInterval){
   enemies.forEach((enemy, idx) => {
     if (!enemy.checkForCollision(player.dimX)) {
       enemy.move();
@@ -75,19 +76,19 @@ function createPlayer(initialX, initialY) {
   player = new Player(
     initialX,
     initialY,
-    50,
-    50,
-    "./images/player.png",
+    32,
+    32,
+    "images/player_flipped.png",
     ctx,
     0,
     100,
     PLAYER_SPEED
   );
-}
+} 
 
 function updatePlayerPos(angle) {
   player.setRotation(angle);
-  enemies.forEach(enemy => {
+  enemies.forEach(enemy => {  
     enemy.updatePlayerPos(player.x, player.y);
   });
 
@@ -102,9 +103,9 @@ function generateEnemy() {
     new Enemy(
       enemyX,
       enemyY,
-      50,
-      50,
-      "./images/player.png",
+      32,
+      32,
+      "images/player.png",
       ctx,
       angle,
       10,
