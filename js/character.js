@@ -28,7 +28,6 @@ class Character {
   }
 
   draw(framesCounter) {
-    console.log(this.frameIndex, this.frameIndex * this.dimX);
     if (framesCounter % 6 === 0) {
       this.frameIndex++;
       if (this.frameIndex >= 3) this.frameIndex = 0;

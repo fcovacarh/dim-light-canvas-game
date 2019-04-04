@@ -8,17 +8,18 @@ var enemies = [];
 var nextEnemyId = 0;
 var ENEMIES_SPEED = 1; 
 var ENEMIES_BASE_HEALTH = 3;
-var ENEMIES_FREQUENCY = 500;
+var ENEMIES_FREQUENCY = 100;
+var generatedEnemies = 0;
+var wave = 5;
 var shotsFired = [];
 
 init();
 
 function init() {
   canvas = document.querySelector("#game");
-  canvasW = canvas.width = window.innerWidth * 0.98;
-  canvasH = canvas.height = window.innerHeight * 0.98;
+  canvasW = canvas.width = window.innerWidth;
+  canvasH = canvas.height = window.innerHeight;
   ctx = canvas.getContext("2d");
-  //ctx.scale(.6, .6)
 
   createPlayer(canvasW / 2, canvasH / 2);
   generateEnemy();
@@ -114,6 +115,12 @@ function generateEnemy() {
       player.y
     )
   );
+  generatedEnemies++;
+  console.log(generatedEnemies, ENEMIES_FREQUENCY, wave);
+  if(generatedEnemies % wave === 0) {
+    generatedEnemies = 0;
+    ENEMIES_FREQUENCY -= 10;
+  }
 }
 
 function drawAll(framesCounter) {
