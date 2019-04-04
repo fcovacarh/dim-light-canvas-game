@@ -47,4 +47,8 @@ class Enemy extends Character {
   dropItem() {
     return new Flame(this.x, this.y, this.playerX, this.playerY, this.ctx);
   }
+
+  die() {
+    return new EnemyDead(this.x, this.y, this.ctx);
+  }
 }

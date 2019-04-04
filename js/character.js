@@ -30,7 +30,7 @@ class Character {
   draw(framesCounter) {
     if (framesCounter % 6 === 0) {
       this.frameIndex++;
-      if (this.frameIndex >= 3) this.frameIndex = 0;
+      if (this.frameIndex >= this.frames - 1) this.frameIndex = 0;
     }
     this.ctx.save();
     this.ctx.translate(this.x, this.y);

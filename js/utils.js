@@ -4,10 +4,14 @@ function toRadians(degrees){
     return degrees * PI/180;
 }
 
-function getRandomInt(min, max) {
+function generateRandomFloat(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    return Math.random() * (max - min + 1) + min;
+}
+
+function getRandomInt(min, max) {
+    return Math.floor(generateRandomFloat(min, max));
 }
 
 function getRandomIntTwoRanges(min1, max1, min2, max2) {

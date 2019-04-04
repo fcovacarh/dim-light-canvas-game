@@ -1,4 +1,4 @@
-class Flame {
+class Flame{
   constructor(x, y, playerX, playerY, ctx) {
     this.x = x;
     this.y = y;
