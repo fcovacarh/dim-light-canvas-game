@@ -27,7 +27,12 @@ class Enemy extends Character {
   }
 
   checkForCollision(playerDiameter) {
-    return getVectorMagnitude({x: this.playerX - this.x, y: this.playerY - this.y}) < playerDiameter;
+    return (
+      getVectorMagnitude({
+        x: this.playerX - this.x,
+        y: this.playerY - this.y
+      }) < playerDiameter
+    );
   }
 
   move() {
@@ -35,7 +40,11 @@ class Enemy extends Character {
     super.move(directionVector.x, directionVector.y);
   }
 
-  takeDamage(damage){
+  takeDamage(damage) {
     this.health -= damage;
+  }
+
+  dropItem() {
+    return new Flame(this.x, this.y, this.playerX, this.playerY, this.ctx);
   }
 }

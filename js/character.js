@@ -48,4 +48,8 @@ class Character {
     );
     this.ctx.restore();
   }
+
+  isDead(){
+    return this.health <= 0;
+  }
 }

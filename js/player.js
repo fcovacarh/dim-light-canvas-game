@@ -38,8 +38,13 @@ class Player extends Character {
     );
   }
 
+  heal(restoration) {
+    if(this.health < 100){
+      this.health + restoration < 100 ? this.health += restoration : this.health = 100;
+    }
+  }
+
   takeDamage(damage) {
     this.health -= damage;
-    console.log(`OUCH! (${this.health})`);
   }
 }
