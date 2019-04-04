@@ -17,8 +17,8 @@ class Player extends Character {
     this.speed = speed;
   }
 
-  draw(canvasW, canvasH) {
-    super.draw();
+  draw(frameCounter, canvasW, canvasH) {
+    super.draw(frameCounter);
     ctx.fillStyle = `rgba(0,0,0,${1 - this.health/100})`;
     ctx.fillRect(0, 0, canvasW, canvasH);
 }

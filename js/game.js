@@ -92,7 +92,6 @@ function updatePlayerPos(angle) {
   enemies.forEach(enemy => {  
     enemy.updatePlayerPos(player.x, player.y);
   });
-
 }
 
 function generateEnemy() {
@@ -117,10 +116,10 @@ function generateEnemy() {
   );
 }
 
-function drawAll() {
+function drawAll(framesCounter) {
   shotsFired.forEach(shot => shot.draw());
-  enemies.forEach(enemy => enemy.draw());
-  player.draw(canvasW, canvasH);
+  enemies.forEach(enemy => enemy.draw(framesCounter));
+  player.draw(framesCounter, canvasW, canvasH);
 }
 
 function gameOver() {
