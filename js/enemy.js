@@ -9,10 +9,12 @@ class Enemy extends Character {
     rotation,
     health,
     speed,
+    dropRate,
     playerX,
     playerY
   ) {
     super(x, y, dimX, dimY, image, ctx, rotation, health, speed);
+    this.dropRate = dropRate;
     this.playerX = playerX;
     this.playerY = playerY;
   }
@@ -45,7 +47,9 @@ class Enemy extends Character {
   }
 
   dropItem() {
-    return new Flame(this.x, this.y, this.playerX, this.playerY, this.ctx);
+    if(Math.random() > this.dropRate){
+      return new Flame(this.x, this.y, this.playerX, this.playerY, this.ctx);
+    }
   }
 
   die() {

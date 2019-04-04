@@ -1,35 +1,43 @@
-var canvas, canvasW, canvasH, canvasOffset, offsetX, offsetY, ctx;
-var fps = 60;
-var preload;
-var SPAWN_RANGE = 100;
-var player;
-var PLAYER_SPEED = 5;
-var enemies = [];
-var deadEnemies = [];
-var nextEnemyId = 0;
-var ENEMIES_SPEED = 1;
-var ENEMIES_BASE_HEALTH = 3;
-var ENEMIES_FREQUENCY = 100;
-var ENEMIES_SPECIES = [
-  {
-    name: "Red Insect",
-    image: "./images/enemy1.png",
-    health: 3,
-    speed: 1,
-    dropRate: 0.5
-  },
-  {
-    name: "Green Insect",
-    image: "./images/enemy2.png",
-    health: 5,
-    speed: 0.5,
-    dropRate: 0.7
-  }
-];
-var generatedEnemies = 0;
-var waveLength = 5;
-var shotsFired = [];
-var flames = [];
+var canvas,
+  canvasW,
+  canvasH,
+  canvasOffset,
+  offsetX,
+  offsetY,
+  ctx,
+  fps = 60,
+  preload,
+  SPAWN_RANGE = 100,
+  player,
+  PLAYER_SPEED = 5,
+  enemies = [],
+  corpses = [],
+  deadEnemies = 0,
+  nextEnemyId = 0,
+  ENEMIES_SPEED = 1,
+  ENEMIES_BASE_HEALTH = 3,
+  ENEMIES_FREQUENCY = 100,
+  ENEMIES_MIN_FREQ = 20,
+  ENEMIES_SPECIES = [
+    {
+      name: "Red Insect",
+      image: "./images/enemy1.png",
+      health: 3,
+      speed: 1,
+      dropRate: 0.5
+    },
+    {
+      name: "Green Insect",
+      image: "./images/enemy2.png",
+      health: 5,
+      speed: 0.5,
+      dropRate: 0.7
+    }
+  ],
+  generatedEnemies = 0,
+  waveLength = 5,
+  shotsFired = [],
+  flames = [];
 
 init();
 
@@ -40,15 +48,18 @@ function init() {
   ctx = canvas.getContext("2d");
 
   createPlayer(canvasW / 2, canvasH / 2);
-  generateEnemy();
+  if (deadEnemies < waveLength) {
+    generateEnemy();
+  }
   var framesCounter = 0;
   var gameInterval = setInterval(() => {
     framesCounter++;
-    if (
-      generatedEnemies < waveLength &&
-      framesCounter % ENEMIES_FREQUENCY === 0 &&
-      ENEMIES_FREQUENCY > 0
-    ) {
+    if(ENEMIES_FREQUENCY <= ENEMIES_MIN_FREQ) {
+      clearInterval(gameInterval);
+      win();
+    }
+
+    if (framesCounter % ENEMIES_FREQUENCY === 0) {
       generateEnemy();
     }
     checkIfFlameTaken();
@@ -83,9 +94,13 @@ function checkIfEnemiesAreShot() {
         shotsFired.splice(shotIdx, 1);
         enemy.takeDamage(shot.damage);
         if (enemy.isDead()) {
-          flames.push(enemy.dropItem());
+          var droppedItem = enemy.dropItem();
+          if (droppedItem) {
+            flames.push(droppedItem);
+          }
           enemies.splice(enemyIdx, 1);
-          deadEnemies.push(enemy.die());
+          corpses.push(enemy.die());
+          deadEnemies++;
         }
       }
     });
@@ -103,6 +118,7 @@ function checkIfEnemiesAttacked(gameInterval) {
         gameOver();
       }
       enemies.splice(idx, 1);
+      corpses.push(enemy.die());
     }
     enemy.move();
   });
@@ -116,6 +132,8 @@ function createPlayer(initialX, initialY) {
     32,
     "images/player_flipped.png",
     ctx,
+    canvasW,
+    canvasH,
     0,
     100,
     PLAYER_SPEED
@@ -146,6 +164,7 @@ function generateRandomEnemy(enemyX, enemyY, angle) {
       angle,
       enemyProps.health,
       enemyProps.speed,
+      enemyProps.dropRate,
       player.x,
       player.y
     )
@@ -153,6 +172,7 @@ function generateRandomEnemy(enemyX, enemyY, angle) {
 }
 
 function generateEnemy() {
+  console.log(ENEMIES_FREQUENCY);
   var enemyX = getRandomIntTwoRanges(
     -SPAWN_RANGE,
     0,
@@ -171,19 +191,23 @@ function generateEnemy() {
   );
   generateRandomEnemy(enemyX, enemyY, angle);
   generatedEnemies++;
-  if (deadEnemies.length % waveLength === 0) {
-    ENEMIES_FREQUENCY -= 10;
-    generatedEnemies = 0;
-    waveLength += 5;
+  console.log(deadEnemies, waveLength, deadEnemies % waveLength === 0);
+  if (deadEnemies > 0 && deadEnemies % waveLength === 0) {
+    ENEMIES_FREQUENCY > ENEMIES_MIN_FREQ ? (ENEMIES_FREQUENCY -= ENEMIES_MIN_FREQ) : null;
+    waveLength < 15 ? (waveLength += 5) : null;
   }
 }
 
 function drawAll(framesCounter) {
-  deadEnemies.forEach(dead => dead.draw(framesCounter));
+  corpses.forEach(dead => dead.draw(framesCounter));
   shotsFired.forEach(shot => shot.draw());
   flames.forEach(flame => flame.draw(framesCounter));
   enemies.forEach(enemy => enemy.draw(framesCounter));
   player.draw(framesCounter, canvasW, canvasH);
+}
+
+function win() {
+  console.log("win")
 }
 
 function gameOver() {
