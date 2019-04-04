@@ -54,12 +54,12 @@ function init() {
   var framesCounter = 0;
   var gameInterval = setInterval(() => {
     framesCounter++;
-    if(ENEMIES_FREQUENCY <= ENEMIES_MIN_FREQ) {
+    if(ENEMIES_FREQUENCY <= ENEMIES_MIN_FREQ && enemies.length === 0) {
       clearInterval(gameInterval);
       win();
     }
 
-    if (framesCounter % ENEMIES_FREQUENCY === 0) {
+    if (framesCounter % ENEMIES_FREQUENCY === 0 && ENEMIES_FREQUENCY > ENEMIES_MIN_FREQ) {
       generateEnemy();
     }
     checkIfFlameTaken();
@@ -130,7 +130,7 @@ function createPlayer(initialX, initialY) {
     initialY,
     32,
     32,
-    "images/player_flipped.png",
+    "images/player.png",
     ctx,
     canvasW,
     canvasH,
