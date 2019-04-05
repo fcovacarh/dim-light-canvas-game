@@ -61,6 +61,8 @@ function reset() {
   //Hide text graphics
   gameOverText.style.display = 'none';
   resetBtn.style.display = 'none';
+  winText.style.display = 'none';
+  finalScore.style.display = 'none';
 
   init();
 }
@@ -259,6 +261,7 @@ function win() {
   finalScore.innerHTML = `Your score: ${score}`;
   winText.style.display = 'block';
   finalScore.style.display = 'block';
+  resetBtn.style.display = 'block';
 
 }
 

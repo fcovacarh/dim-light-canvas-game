@@ -99,11 +99,16 @@ a[href="#intro"], a[href="#intro"]:hover, a[href="#intro"]:visited {
 
 section {
     width: 98vw;
-    height: 99vh;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+#story {
+    color: var(--darkest-contrast);
+    background-color: var(--darkest-color);
 }
 
 #instructions ul li {
