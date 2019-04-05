@@ -17,6 +17,7 @@ When enemies attack the player, screen gets darker so enemies are also harder to
 
 
 Game ends when player's torch dies or player kills all enemies.
+
 ![dim-lights-game-over-screen](https://user-images.githubusercontent.com/13164624/55621960-3f9a3c80-579f-11e9-80fc-bbc308a57802.png)
 
 # Cool bits of the code
@@ -25,6 +26,7 @@ The game uses **vectors** to rotate the player to mouse position in canvas and g
 ![dim-lights-vector-code](https://user-images.githubusercontent.com/13164624/55620373-0d86db80-579b-11e9-806c-e16198a96acc.png)
 
 In order to make the enemies move towards the player, player's position is passed to enemies in every frame.
+
 ![dim-lights-enemy-update-player-pos-code](https://user-images.githubusercontent.com/13164624/55620521-60609300-579b-11e9-823e-fc96739d6e0d.png)
 
 Bullets move uniformly to mouse position 🔫
