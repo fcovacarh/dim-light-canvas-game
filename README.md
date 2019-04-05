@@ -28,6 +28,7 @@ In order to make the enemies move towards the player, player's position is passe
 ![dim-lights-enemy-update-player-pos-code](https://user-images.githubusercontent.com/13164624/55620521-60609300-579b-11e9-823e-fc96739d6e0d.png)
 
 Bullets move uniformly to mouse position 🔫
+
 ![dim-lights-shooting-screen](https://user-images.githubusercontent.com/13164624/55620833-39ef2780-579c-11e9-9bd6-cf9b1ae7ad47.png)
 
 
