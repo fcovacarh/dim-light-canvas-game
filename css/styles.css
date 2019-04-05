@@ -6,7 +6,6 @@
 body {
 	font-family: 'Open Sans', sans-serif;
     font-size: 16px;
-    
 }
 
 h1 {	
@@ -83,6 +82,22 @@ a[href="#intro"], a[href="#intro"]:hover, a[href="#intro"]:visited {
     color: var(--darkest-contrast);
 }
 
+.bug-moving {
+    padding: 2rem;
+    animation-name: bugMoving;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    /*animation-direction: alternate;*/
+}
+
+@keyframes bugMoving {
+    0% {transform: translateX(-20rem) rotate(-90deg)}
+    25% {transform: translateX(-20rem) rotate(90deg)}
+    50% {transform: translateX(20rem) rotate(90deg)}
+    75%{transform: translateX(20rem) rotate(-90deg)}
+    100%{transform: translateX(-20rem) rotate(-90deg)}
+}
+
 section {
     width: 98vw;
     height: 99vh;
@@ -100,6 +115,19 @@ section {
     font-family: 'Press Start 2P', cursive;
     font-size: 0.8rem;
     content: '>';
+}
+
+@keyframes playerMoving {
+    from{transform: rotate(0deg)}
+    to {transform: rotate(180deg)}
+}
+
+.player-moving {
+    padding: 2rem;
+    animation-name: playerMoving;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
 }
 
 #start-btn {
