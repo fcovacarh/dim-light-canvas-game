@@ -36,3 +36,7 @@ Bullets move uniformly to mouse position 🔫
 Also could be more interesting if the player could **move relative to the mouse position** instead of moving relative to the canvas.
 
 Another cool possible feature could be **power ups** or **new guns**.
+
+
+# Play the game
+[Go!](https://fcovacarh.github.io/dim-light-canvas-game/)
