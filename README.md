@@ -3,12 +3,18 @@
 
 **Dim light** is a survival game made on **HTML5 Canvas**. 
 The player goal is to kill as many bugs as possible and remaining alive.
+
 ![dim-light-character clone](https://user-images.githubusercontent.com/13164624/55621288-648db000-579d-11e9-9932-04f770a289c8.gif)
 
 # Controls and game mechanics
 Player moves with keys A, W, S, D and points its gun by moving the mouse and shoots by clicking on canvas.
 
 The goal of the player is to survive multiple enemies attacking from outside of the canvas by keeping its torch lighted up, enemies may drop little flames that can be picked up by the player to bright up the scene. 
+
+When enemies attack the player, screen gets darker so enemies are also harder to see.
+
+![dim-lights-blackout-scren](https://user-images.githubusercontent.com/13164624/55622569-dd423b80-57a0-11e9-8d28-97ec5ab22ec0.gif)
+
 
 Game ends when player's torch dies or player kills all enemies.
 ![dim-lights-game-over-screen](https://user-images.githubusercontent.com/13164624/55621960-3f9a3c80-579f-11e9-80fc-bbc308a57802.png)
