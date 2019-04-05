@@ -1,9 +1,100 @@
+:root {
+    --darkest-color: #000;
+	--darkest-contrast: #fff;
+}
+
 body {
+	font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    
+}
+
+h1 {	
+	font-family: 'Press Start 2P', cursive;
+    font-size: 1.6rem;
+    padding-bottom: 1rem;
+}
+
+p {
+    text-align: left;
+    padding-bottom: .6rem;
+}
+
+a, a:hover {
+    text-decoration: none;
+}
+
+.navigation {
+    border-bottom: 1px solid rgb(230,230,230);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--darkest-color);    
+    text-transform: uppercase;
+    position: fixed;
+    width: 100%;
+    padding: 20px 0;
+    z-index: 9999;
+    transition: all .3s;
+}
+
+.navigation.sticky {
+    padding: 0;
+    background: var(--darkest-color);
+    color: var(--darkest-contrast);
+}
+
+.navigation img {
+    height: 40px;
+    margin: 5px 15px 5px 10px;
+}
+
+.navigation ul {
+    text-decoration: none;
+    margin: 0 10px 0 0;
+}
+
+.navigation li {
+    display: inline-block;
+    margin: 0 15px;
+}
+
+.navigation li a {
+    padding: 10px 5px;
+    display: block;
+    color: inherit;
+}
+
+a[href="#intro"], a[href="#intro"]:hover, a[href="#intro"]:visited {
+    display: flex;
+    align-items: center;
+    font-family: 'Press Start 2P', cursive;
+    color: var(--darkest-color);
+}
+
+.navigation.sticky a[href="#intro"], 
+.navigation.sticky a[href="#intro"]:hover, 
+.navigation.sticky a[href="#intro"]:visited {
+    display: flex;
+    align-items: center;
+    font-family: 'Press Start 2P', cursive;
+    color: var(--darkest-contrast);
+}
+
+section {
     width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+}
+
+#play-the-game button{
+    font-family: 'Press Start 2P',cursive;
+    background-color: transparent;
+    border: 0.1rem solid black;
+    padding: 1rem 2rem;
 }
 
 #game {

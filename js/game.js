@@ -39,9 +39,8 @@ var canvas,
   shotsFired = [],
   flames = [];
 
-init();
-
 function init() {
+  setEventListeners();
   canvas = document.querySelector("#game");
   canvasW = canvas.width = window.innerWidth;
   canvasH = canvas.height = window.innerHeight;
@@ -172,7 +171,6 @@ function generateRandomEnemy(enemyX, enemyY, angle) {
 }
 
 function generateEnemy() {
-  console.log(ENEMIES_FREQUENCY);
   var enemyX = getRandomIntTwoRanges(
     -SPAWN_RANGE,
     0,
@@ -191,7 +189,6 @@ function generateEnemy() {
   );
   generateRandomEnemy(enemyX, enemyY, angle);
   generatedEnemies++;
-  console.log(deadEnemies, waveLength, deadEnemies % waveLength === 0);
   if (deadEnemies > 0 && deadEnemies % waveLength === 0) {
     ENEMIES_FREQUENCY > ENEMIES_MIN_FREQ ? (ENEMIES_FREQUENCY -= ENEMIES_MIN_FREQ) : null;
     waveLength < 15 ? (waveLength += 5) : null;

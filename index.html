@@ -5,12 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Press+Start+2P" rel="stylesheet">
     <link rel="stylesheet" href="./css/styles.css">
     <title>Document</title>
   </head>
   <body>
-    <canvas id="game"></canvas>
+    <header class="navigation">
+      <a href="#intro" class="scrollto">
+        <img src="./images/logo.gif" alt="Flame">
+        Dim Light
+      </a>
+      <nav>
+            <ul>
+                <li><a href="#story" class="scrollto">Story</a></li>
+                <li><a href="#instructions" class="scrollto">Instructions</a></li>
+                <li><a href="#play-the-game" class="scrollto">Play</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="intro">
+      <h1>Dim Light</h1>
+      <p>Kill bugs. Survive the night</p>
+    </section>
+    <section id="story">
+      <h1>We shouldn't have taken this suicide mission...</h1>
+      <p>...but those things have created a nest next to the shelter, so we did what its supposed to do.</p>
+      <p>Somehow we managed to get in there, burned most of them but many of my friends died.</p>
+      <p>Now I'm lost in this dark cave, those bastards are after me.</p>
+    </section>
+    <section id="instructions">
+      <h1>Keep the torch alive</h1>
+      <ul>
+      <li>Move player with AWSD</li>
+      <li>Shoot by clicking on the game screen</li>
+      <li>Pick up flames dropped by enemies</li>
+      <li>Don't let those filthy f*cking bugs get near you...</li>
+    </ul>
+    </section>
+    <section id="play-the-game">
+      <button onclick="init()">Play the game</button>
+      <canvas id="game" width="0" height="0"></canvas>
+    </section>
   </body>
+  <script src="js/web.js"></script>
   <script src="js/utils.js"></script>
   <script src="js/character.js"></script>
   <script src="js/shot.js"></script>

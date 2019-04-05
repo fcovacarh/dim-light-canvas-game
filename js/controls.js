@@ -1,7 +1,10 @@
+function setEventListeners() {
+
 //Player faces mouse pointer, and enemies face user
 document.onmousemove = e => {
+  var rect = canvas.getBoundingClientRect();
   var angle = getAngleBetween(
-    { x: e.pageX, y: e.pageY },
+    { x: e.clientX - rect.left, y: e.clientY - rect.top },
     { x: player.x, y: player.y }
   );
   updatePlayerPos(angle);
@@ -9,7 +12,8 @@ document.onmousemove = e => {
 
 //Player shoots
 document.onmousedown = e => {
-  shotsFired.push(player.shoot(e.pageX, e.pageY));
+  var rect = canvas.getBoundingClientRect();
+  shotsFired.push(player.shoot(e.clientX - rect.left, e.clientY - rect.top));
 };
 
 //Player moves
@@ -44,3 +48,4 @@ document.onkeyup = e => {
     keys[e.keyCode] = false;
   }
 };
+}
