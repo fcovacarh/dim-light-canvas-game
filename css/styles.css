@@ -85,7 +85,7 @@ a[href="#intro"], a[href="#intro"]:hover, a[href="#intro"]:visited {
 .bug-moving {
     padding: 2rem;
     animation-name: bugMoving;
-    animation-duration: 2s;
+    animation-duration: 4s;
     animation-iteration-count: infinite;
     /*animation-direction: alternate;*/
 }
