@@ -6,7 +6,7 @@ var canvas,
   offsetY,
   ctx,
   fps = 60,
-  preload,
+  bgMusic,
   SPAWN_RANGE = 100,
   player,
   PLAYER_SPEED = 5,
@@ -16,7 +16,7 @@ var canvas,
   nextEnemyId = 0,
   ENEMIES_SPEED = 1,
   ENEMIES_BASE_HEALTH = 3,
-  ENEMIES_FREQUENCY = 100,
+  ENEMIES_FREQUENCY = 150,
   ENEMIES_MIN_FREQ = 20,
   ENEMIES_SPECIES = [
     {
@@ -40,12 +40,14 @@ var canvas,
   flames = [];
 
 function init() {
+  document.querySelector('#start-btn').style.display = 'none';
   setEventListeners();
   canvas = document.querySelector("#game");
-  canvasW = canvas.width = window.innerWidth;
-  canvasH = canvas.height = window.innerHeight;
+  canvasW = canvas.width = window.innerWidth * 0.8;
+  canvasH = canvas.height = window.innerHeight * 0.8;
   ctx = canvas.getContext("2d");
-
+  bgMusic = new Audio("sounds/bg_music.mp3");
+  bgMusic.play();
   createPlayer(canvasW / 2, canvasH / 2);
   if (deadEnemies < waveLength) {
     generateEnemy();
