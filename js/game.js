@@ -10,10 +10,10 @@ var canvas,
   SPAWN_RANGE = 100,
   player,
   PLAYER_SPEED = 5,
+  score = 0,
   enemies = [],
   corpses = [],
   deadEnemies = 0,
-  nextEnemyId = 0,
   ENEMIES_SPEED = 1,
   ENEMIES_BASE_HEALTH = 3,
   ENEMIES_FREQUENCY = 150,
@@ -37,10 +37,38 @@ var canvas,
   generatedEnemies = 0,
   waveLength = 5,
   shotsFired = [],
+  flames = [],
+  startBtn,
+  resetBtn,
+  scoreText,
+  winText,
+  finalScore,
+  gameOverText;
+
+function reset() {
+  //Reset game variables
+  score = 0;
+  enemies = [];
+  corpses = [];
+  deadEnemies = 0;
+  ENEMIES_FREQUENCY = 150;
+  ENEMIES_MIN_FREQ = 20;
+  generatedEnemies = 0;
+  waveLength = 5;
+  shotsFired = [];
   flames = [];
 
+  //Hide text graphics
+  gameOverText.style.display = 'none';
+  resetBtn.style.display = 'none';
+
+  init();
+}
+
 function init() {
-  document.querySelector('#start-btn').style.display = 'none';
+  initSelectors();
+  updateScore();
+  startBtn.style.display = 'none';
   setEventListeners();
   canvas = document.querySelector("#game");
   canvasW = canvas.width = window.innerWidth * 0.8;
@@ -79,6 +107,15 @@ function init() {
   }, 1000 / fps);
 }
 
+function initSelectors() {
+  startBtn = document.querySelector('#start-btn');
+  resetBtn = document.querySelector('#reset-btn');
+  scoreText = document.querySelector('#score');
+  winText = document.querySelector('#win-text');
+  finalScore = document.querySelector('#win-score');
+  gameOverText = document.querySelector('#game-over-text');
+}
+
 function checkIfFlameTaken() {
   flames.forEach((flame, flameIdx) => {
     if (flame.checkForCollision(player.dimX)) {
@@ -102,6 +139,8 @@ function checkIfEnemiesAreShot() {
           enemies.splice(enemyIdx, 1);
           corpses.push(enemy.die());
           deadEnemies++;
+          score++;
+          updateScore();
         }
       }
     });
@@ -205,10 +244,28 @@ function drawAll(framesCounter) {
   player.draw(framesCounter, canvasW, canvasH);
 }
 
+function updateScore() {
+  document.querySelector('#score').innerHTML = score;
+}
+
+function hideScore() {
+  document.querySelector('#score').innerHTML = '';
+}
+
 function win() {
-  console.log("win")
+  hideScore();
+  ctx.fillStyle="black";
+  ctx.fillRect(0, 0, canvasW, canvasH);
+  finalScore.innerHTML = `Your score: ${score}`;
+  winText.style.display = 'block';
+  finalScore.style.display = 'block';
+
 }
 
 function gameOver() {
-  console.log("game over");
+  hideScore();
+  ctx.fillStyle="black";
+  ctx.fillRect(0, 0, canvasW, canvasH);
+  gameOverText.style.display = 'block';
+  resetBtn.style.display = 'block';
 }
